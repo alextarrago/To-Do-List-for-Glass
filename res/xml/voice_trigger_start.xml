@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?> 
+
+<!-- We use "keyword" instead "command" because it is an unlisted command -->
+<trigger keyword="@string/glass_voice_trigger" />
