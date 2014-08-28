@@ -27,11 +27,21 @@ import com.google.android.glass.widget.CardScrollView;
 
 public class MainActivity extends Activity implements OnItemClickListener{
 	
-	private static final String TAG = "MyActivity";
+	// Define tag for debugging
+	private static final String TAG = "MyActivity"; 
+	
+	// List of cards
 	private List<Card> mCards;
-    private CardScrollView mCardScrollView;;
+	
+	// ScrollView for holding cards
+    private CardScrollView mCardScrollView;
+    
+    // Current card selected
     private int currentCard = -1;
+    
     private List<ToDoTask> mTaskList;
+    
+   
     private ExampleCardScrollAdapter adapter;
     
     @Override
@@ -39,98 +49,94 @@ public class MainActivity extends Activity implements OnItemClickListener{
         
     	super.onCreate(savedInstanceState);
     	
-		Log.v(TAG, "Create app");
+    	// Create the cards
         createCards();
-
+        
+        // Instantiate and set
         mCardScrollView = new CardScrollView(this);
         adapter = new ExampleCardScrollAdapter();
+        
         mCardScrollView.setAdapter(adapter);
         mCardScrollView.setOnItemClickListener(this);
         mCardScrollView.activate();
+        
+        // Set CardScrollView as content view
         setContentView(mCardScrollView);
         
     }
     
+    // Instantiate ToDoListManager and get list
     private void createCards() {
     	
-		Log.v(TAG, "Create cards");
 
-    	 mCards = new ArrayList<Card>();
+    	 mCards = new ArrayList<Card>();  	 
     	 ToDoListManager listManager = new ToDoListManager();
+    	 
     	 mTaskList = listManager.getToDoList();
 
          Card card;
          
          int sizeList = mTaskList.size();
-         for (int i = 0 ; i < sizeList; i++)
-         {
+         
+         // For all the cards
+         for (int i = 0 ; i < sizeList; i++) {
+        	 
         	 card = new Card(this);
-
              card.setText(mTaskList.get(i).getTask());
+             
+             // Set in the arrayList
              mCards.add(card);
         	 
          }
-        
-
-        
-        
+      
     }
 
+    // Class to manage CardScrollView
     private class ExampleCardScrollAdapter extends CardScrollAdapter {
     	
         @Override
         public int getPosition(Object item) {
-    		Log.v(TAG, "get position");
 
             return mCards.indexOf(item);
         }
 
         @Override
         public int getCount() {
-    		Log.v(TAG, "get count");
 
             return mCards.size();
         }
 
         @Override
         public Object getItem(int position) {
-    		Log.v(TAG, "get item");
 
             return mCards.get(position);
         }
 
         @Override
         public int getViewTypeCount() {
-    		Log.v(TAG, "get view cont");
 
             return Card.getViewTypeCount();
         }
 
         @Override
         public int getItemViewType(int position){
-    		Log.v(TAG, "get item view");
 
             return mCards.get(position).getItemViewType();
         }
 
         public View getView(int position, View convertView,
                 ViewGroup parent) {
-    		Log.v(TAG, "get view : "+ position);
 
             return  mCards.get(position).getView(convertView, parent);
         }
     }
 
-		
-
-
-    
+	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
     	
     	// Create options from "/res/menu/main.xml"
     	getMenuInflater().inflate(R.menu.main, menu);
-		Log.v(TAG, "create  option menu");
 
     	return super.onCreateOptionsMenu(menu);
     }
@@ -154,12 +160,10 @@ public class MainActivity extends Activity implements OnItemClickListener{
     		
     		case R.id.settings_2 :
     			
-    			// Remove currentCard
-    			Log.v(TAG, "Elimino :" + currentCard + " text :" + mTaskList.get(currentCard).getTask() );
-    			
-    			mTaskList.remove(currentCard);
-    			mCards.remove(currentCard); // PER FI!
-    			adapter.notifyDataSetChanged();
+    			// Remove currentCard    			
+    			mTaskList.remove(currentCard); 
+    			mCards.remove(currentCard); 	// Remove the current card selected from the list of Cards
+    			adapter.notifyDataSetChanged(); // Notify the adapter that needs to update the data
     			
     			
     			break;
@@ -178,9 +182,6 @@ public class MainActivity extends Activity implements OnItemClickListener{
 	{
 		super.onResume();
 		
-		Log.v(TAG, "on resume");
-
-		
 		adapter.notifyDataSetChanged();
 	}
     
@@ -189,6 +190,8 @@ public class MainActivity extends Activity implements OnItemClickListener{
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		// TODO Auto-generated method stub
+		
+		// Set current Card for menu option handle
 		currentCard = position;
 		
 		openOptionsMenu();

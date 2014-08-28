@@ -1,9 +1,13 @@
 package com.expositomarc.basicglassapp;
 
+
+// Simple task to do 
 public class ToDoTask {
 	
-	private String mTask = "Hola";
+	// At this moment our task will only have one string
+	private String mTask = "";
 	
+	// Constructor with initial String
 	public ToDoTask (String stringTask) {
 		
 		mTask = stringTask;
