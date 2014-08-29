@@ -10,7 +10,7 @@ Checklist / To Do List for Google Glass using CardScrollView and voice commands
  * Each task has a menu option (check/uncheck and remove task)  --> *Already implemented*
  * Voice commands for using the app --> **In progress**
  
-<<<<<<< HEAD
+
 
   
 *Tested with XE20.1*
@@ -22,5 +22,4 @@ All documented for learning and testing.
 
 
 Have fun!
-=======
->>>>>>> e319b26c695205acf4279d6ce37a5252f8fcc435
+
